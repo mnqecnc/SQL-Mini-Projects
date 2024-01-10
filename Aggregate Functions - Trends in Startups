@@ -1,0 +1,45 @@
+/* Calculating total number of companies */
+SELECT COUNT(*)
+FROM startups;
+
+/* Calculating total and average value of all companies */
+SELECT SUM(valuation)
+FROM startups;
+
+SELECT AVG(valuation)
+FROM startups;
+
+/* Returning the highest amount raised by a startup during 'Seed' stage */
+SELECT MAX(raised)
+FROM startups
+WHERE stage = 'Seed';
+
+/* Oldest Company listed */
+SELECT MIN(founded)
+FROM startups;
+
+-------------------------------------------------------------------------------------------------------------------
+
+/* VALUATIONS AMONG DIFFERENT SECTORS */
+SELECT 
+  category,
+  ROUND(AVG(valuation),2)
+FROM startups
+GROUP BY 1
+ORDER BY 2 DESC;
+
+/* MOST COMPETITIVE MARKETS; categories with more than 3 companies in them */
+SELECT
+  category,
+  COUNT(*)
+FROM startups
+GROUP BY category
+HAVING COUNT(*) > 3;
+
+/* STARTUP SIZES VIS-A-VIS LOCATIONS */
+SELECT
+  location,
+  AVG(employees) as 'avg_size'
+FROM startups
+GROUP BY location
+HAVING avg_size > 500;
